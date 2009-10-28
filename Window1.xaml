@@ -29,14 +29,9 @@
                 </j:LabelPanel>
 
 
-                <j:LabelPanel>
-                    <j:LabelRow>
-                        <TextBox j:LabelPanel.Label="Label 1"  Text="Test 1" />
-                        <TextBox j:LabelPanel.Label="Label 2" Text="Test 2" />
-                    </j:LabelRow>
-                    <j:LabelRow>
-                        <TextBox j:LabelPanel.Label="Label 3"  Text="Test 3" />                        
-                    </j:LabelRow>
+                <j:LabelPanel Orientation="Horizontal">                    
+                    <TextBox j:LabelPanel.Label="Label 1"  Text="Test 1" />
+                    <TextBox j:LabelPanel.Label="Label 2" Text="Test 2" />                    
                 </j:LabelPanel>
                 
             </StackPanel>            

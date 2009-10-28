@@ -82,8 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Person.cs" />
+    <Compile Include="HorizontalStrategy.cs" />
+    <Compile Include="ILabelPanel.cs" />
+    <Compile Include="ILabelPanelOrientationStrategy.cs" />
     <Compile Include="LabelPanel.cs" />
-    <Compile Include="LabelRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +100,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Utilities\Wpf.cs" />
+    <Compile Include="VerticalStrategy.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
