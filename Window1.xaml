@@ -1,0 +1,46 @@
+﻿<Window x:Class="JBsLabelPanel.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:j="clr-namespace:JBsLabelPanel"
+    Title="Window1" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="Testing JB's Label Panel Idea" />
+        
+        <Border Grid.Row="1" 
+                Margin="10" 
+                BorderThickness="1"
+                BorderBrush="Black">            
+        
+            <StackPanel>
+                
+                <j:LabelPanel>
+                    <TextBox j:LabelPanel.Label="Label 1"  Text="Test 1" />
+                    <TextBox j:LabelPanel.Label="Label 2" Text="Test 2" />
+                </j:LabelPanel>
+                
+                <j:LabelPanel>
+                    <TextBox j:LabelPanel.Label="{Binding ElementName=text2, Path=Text}"  Text="Test 1" />
+                    <TextBox x:Name="text2" j:LabelPanel.Label="Label 2" Text="Test 2" />
+                </j:LabelPanel>
+
+
+                <j:LabelPanel>
+                    <j:LabelRow>
+                        <TextBox j:LabelPanel.Label="Label 1"  Text="Test 1" />
+                        <TextBox j:LabelPanel.Label="Label 2" Text="Test 2" />
+                    </j:LabelRow>
+                    <j:LabelRow>
+                        <TextBox j:LabelPanel.Label="Label 3"  Text="Test 3" />                        
+                    </j:LabelRow>
+                </j:LabelPanel>
+                
+            </StackPanel>            
+        
+        </Border>
+    </Grid>
+</Window>
