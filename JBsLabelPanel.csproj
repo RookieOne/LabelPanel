@@ -81,10 +81,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Person.cs" />
     <Compile Include="HorizontalStrategy.cs" />
-    <Compile Include="ILabelPanel.cs" />
-    <Compile Include="ILabelPanelOrientationStrategy.cs" />
+    <Compile Include="ILabelPanelGridFacade.cs" />
+    <Compile Include="LabelPanelGridFacade.cs" />
+    <Compile Include="ILabelPanelLayoutStrategy.cs" />
     <Compile Include="LabelPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -99,7 +99,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utilities\Wpf.cs" />
     <Compile Include="VerticalStrategy.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,9 +109,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

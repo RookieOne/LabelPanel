@@ -1,22 +1,26 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace JBsLabelPanel
 {
-    public class HorizontalStrategy : ILabelPanelOrientationStrategy
-    {
-        public void AddVisual(UIElement element, ILabelPanel labelPanel)
+    public class HorizontalStrategy : ILabelPanelLayoutStrategy
+    {        
+        public void AddVisual(Label label, UIElement element, ILabelPanelGridFacade grid)
         {
-            if (labelPanel.NeedAnotherRow(1))
-                labelPanel.AddRow();
+            int lastRow = grid.GetLastRow();
 
-            int row = labelPanel.GetLastRow();
+            if (lastRow < 0)
+            {
+                grid.AddRow();
+                lastRow = grid.GetLastRow();
+            }
 
-            labelPanel.AddColumnPair();
+            grid.AddColumnPair();
 
-            int col = labelPanel.GetLastColumn();
+            int col = grid.GetLastColumn();
 
-            labelPanel.AddVisualToGrid(row, col - 1, labelPanel.GetLabel(element));
-            labelPanel.AddVisualToGrid(row, col, element);
+            grid.AddVisualToGrid(lastRow, col - 1, label);
+            grid.AddVisualToGrid(lastRow, col, element);
         }
     }
 }

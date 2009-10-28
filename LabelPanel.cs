@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace JBsLabelPanel
 {
-    public class LabelPanel : Panel, ILabelPanel
+    public class LabelPanel : Panel
     {
         static LabelPanel()
         {
@@ -27,17 +27,17 @@ namespace JBsLabelPanel
         public LabelPanel()
         {
             _ActualChildren = new List<UIElement>();
-
-            _OrientationStrategy = new VerticalStrategy();
+            _LayoutStrategy = new VerticalStrategy();
         }
 
         public static DependencyProperty LabelProperty;
         public static DependencyProperty OrientationProperty;
+
         readonly List<UIElement> _ActualChildren;
 
         Grid _Grid;
         bool _GridMustBeRebuilt;
-        ILabelPanelOrientationStrategy _OrientationStrategy;
+        ILabelPanelLayoutStrategy _LayoutStrategy;
 
         protected override int VisualChildrenCount
         {
@@ -48,14 +48,6 @@ namespace JBsLabelPanel
         {
             get { return (Orientation) GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
-        }
-
-        public void AddVisualToGrid(int row, int col, UIElement visual)
-        {
-            Grid.SetRow(visual, row);
-            Grid.SetColumn(visual, col);
-
-            _Grid.Children.Add(visual);
         }
 
         public Label GetLabel(UIElement visual)
@@ -70,45 +62,6 @@ namespace JBsLabelPanel
             return label;
         }
 
-        public int GetLastRow()
-        {
-            return _Grid.RowDefinitions.Count - 1;
-        }
-
-        public int GetLastColumn()
-        {
-            return _Grid.ColumnDefinitions.Count - 1;
-        }
-
-        public void AddRow()
-        {
-            var rowDefinition = new RowDefinition();
-            rowDefinition.Height = GridLength.Auto;
-
-            _Grid.RowDefinitions.Add(rowDefinition);
-        }
-
-        public bool NeedAnotherColumnPair(int col)
-        {
-            return _Grid.ColumnDefinitions.Count < col;
-        }
-
-        public bool NeedAnotherRow(int row)
-        {
-            return _Grid.RowDefinitions.Count < row;
-        }
-
-        public void AddColumnPair()
-        {
-            var labelColumn = new ColumnDefinition();
-            labelColumn.Width = GridLength.Auto;
-            _Grid.ColumnDefinitions.Add(labelColumn);
-
-            var contentColumn = new ColumnDefinition();
-            contentColumn.Width = new GridLength(1, GridUnitType.Star);
-            _Grid.ColumnDefinitions.Add(contentColumn);
-        }
-
         static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var labelPanel = d as LabelPanel;
@@ -116,7 +69,7 @@ namespace JBsLabelPanel
             if (labelPanel == null)
                 return;
 
-            labelPanel._OrientationStrategy = labelPanel.GetStrategy();
+            labelPanel._LayoutStrategy = labelPanel.GetStrategy();
             labelPanel._GridMustBeRebuilt = true;
         }
 
@@ -130,7 +83,7 @@ namespace JBsLabelPanel
             obj.SetValue(LabelProperty, value);
         }
 
-        ILabelPanelOrientationStrategy GetStrategy()
+        ILabelPanelLayoutStrategy GetStrategy()
         {
             switch (Orientation)
             {
@@ -187,10 +140,11 @@ namespace JBsLabelPanel
 
 
             _Grid = new Grid();
+            var gridFacade = new LabelPanelGridFacade(_Grid);
             Children.Add(_Grid);
 
             foreach (UIElement child in _ActualChildren)
-                _OrientationStrategy.AddVisual(child, this);
+                _LayoutStrategy.AddVisual(GetLabel(child), child, gridFacade);
 
             _GridMustBeRebuilt = false;
         }
